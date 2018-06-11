@@ -3,7 +3,11 @@
 from sense_emu import SenseHat
 import time
 
-from binary_clock import binary_clock
+from binary_clock import binary_clock as bin_clk
+from weather_info import display_weather, display_temp
+
+sense = SenseHat()
+city = input("Enter a city name.\n")
 
 # Colors values
 colors = {
@@ -38,14 +42,23 @@ def hours(instance):
     instance.show_message(time.strftime("%H:%M"))
 
 
-def bin_clk(instance):
-    binary_clock(instance)
-
-
 # All the current functions are in this list
 functions = [date, day, hours, temperature, bin_clk]
 
-sense = SenseHat()
+if city:
+    """If a city is given we declare and add the functions which use the city
+    for the weather."""
+    def weather(instance):
+        """Display the weather of the city which is given."""
+        display_weather(city, instance)
+
+    def outside_temp(instance):
+        """Display the temperature of the city which is given."""
+        display_temp(city, instance)
+
+    functions += [weather, outside_temp]
+
+
 idx = -1
 
 while True:
