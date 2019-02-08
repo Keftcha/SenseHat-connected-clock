@@ -12,8 +12,7 @@ def binary_time():
     time = [hours[0], hours[1], minutes[0], minutes[1]]
     time = [str(bin(int(nb)))[2:] for nb in time]
 
-    # We put the same number of chiffre as the maximum the chiffre can be
-    # mettre un example
+    # We put the same number of digit as the maximum number can have
     time = [
         add_caracteres(time[0], "0", 2),    # hours dizaines
         add_caracteres(time[1], "0", 4),    # hours units
@@ -40,7 +39,7 @@ def display(time, instance, on_color=[255, 255, 255], off_color=[0, 0, 0]):
 
     display = [off_color for _ in range(8) for _ in range(8)]
 
-    # We display each chiffre one by one
+    # We display each digit one by one
     column = 0
     for nb in time:
         nb = list(nb)
