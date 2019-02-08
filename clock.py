@@ -5,6 +5,7 @@ import time
 
 from binary_clock import binary_clock as bin_clk
 from weather_info import display_weather, display_temp
+from digital_clock import digital_clock as dgt_clk
 
 sense = SenseHat()
 city = input("Enter a city name.\n")
@@ -21,6 +22,7 @@ colors = {
 }
 
 
+# Some basical functions
 def temperature(instance):
     """Display on the instance of SenseHat() the current temperature (XX,X)"""
     instance.show_message(str(round(instance.get_temperature(), 1)))
@@ -43,8 +45,10 @@ def hours(instance):
 
 
 # All the current functions are in this list
-functions = [date, day, hours, temperature, bin_clk]
+functions = [date, day, hours, temperature, bin_clk, dgt_clk]
 
+
+# Weather functions
 if city:
     """If a city is given we declare and add the functions which use the city
     for the weather."""
@@ -59,6 +63,7 @@ if city:
     functions += [weather, outside_temp]
 
 
+# Program loop
 idx = -1
 
 while True:
@@ -69,4 +74,4 @@ while True:
             if event.direction == "left":
                 idx -= 1
 
-    functions[(idx + len(functions)) % len(functions)](sense)
+    functions[idx % len(functions)](sense)
