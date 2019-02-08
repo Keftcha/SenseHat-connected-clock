@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sense_emu import SenseHat
+from sense_hat import SenseHat
 import time
 
 from binary_clock import binary_clock as bin_clk

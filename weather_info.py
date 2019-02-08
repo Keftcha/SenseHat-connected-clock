@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sense_emu import SenseHat
+from sense_hat import SenseHat
 
 from weather import Weather, Unit
 
