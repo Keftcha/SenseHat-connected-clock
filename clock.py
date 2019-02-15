@@ -13,8 +13,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "-c", "--color",
     type=str,
-    choices=("red", "green", "blue", "purple", "cyan", "yellow", "white", "black"),
-    help="Color used for display, possibles values: red, green, blue, purple, cyan, yellow, white, black"
+    choices=(
+        "red", "green", "blue",
+        "purple", "cyan", "yellow",
+        "white", "black"
+    ),
+    help="Color used for display"
 )
 parser.add_argument(
     "-r", "--rotation",

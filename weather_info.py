@@ -12,13 +12,13 @@ def get_conditions(city):
     return location.condition
 
 
-def display_weather(city, instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
+def display_weather(city, instance, fg=[255, 255, 255], bg=[0, 0, 0]):
     """Display the curent weather"""
     condition = get_conditions(city)
     instance.show_message(
         condition.text,
-        text_color=fg_color,
-        back_color=bg_color
+        text_color=fg,
+        back_color=bg
     )
 
 
