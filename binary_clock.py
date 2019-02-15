@@ -55,8 +55,8 @@ def display(time, instance, on_color=[255, 255, 255], off_color=[0, 0, 0]):
     instance.set_pixels(display)
 
 
-def binary_clock(instance):
-    display(binary_time(), instance)
+def binary_clock(instance, color):
+    display(binary_time(), instance, color)
 
 
 if __name__ in "__main__":

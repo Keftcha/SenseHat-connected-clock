@@ -102,22 +102,21 @@ def make_list():
     pixels = []
 
     for unit in (hours, minutes):
-        for line_number in range(4): # because a number have a height of 4
+        for line_number in range(4):    # because a number have a height of 4
             pixels.extend(nbrs[unit["d"]][line_number] + nbrs[unit["u"]][line_number])
 
     return pixels
 
 
-def display(pixels_states, instance):
+def display(pixels_states, instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
     """Given the states of each pixels (1 = on, 0 = off) in a list,
     we display the list on the led matrix"""
 
-    instance.set_pixels([[255, 255, 255] if state else [0, 0, 0] for state in pixels_states])
+    instance.set_pixels([fg_color if state else bg_color for state in pixels_states])
 
 
-def digital_clock(instance):
-    display(make_list(), instance)
-
+def digital_clock(instance, color):
+    display(make_list(), instance, color)
 
 
 if __name__ in "__main__":
