@@ -1,2 +1,8 @@
+Colors are stored in ./colors.json
+We use json module for store colors instead of pickle
+because the user can easily add, remove colors or change colors order.
+Colors are use as a dictionary,
+the key is the color name and the value is a list representing the RGB values (0 to 255)
+
 For the weather functionality we install the weather-api pip package
 https://pypi.org/project/weather-api/

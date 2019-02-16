@@ -3,21 +3,24 @@
 from sense_hat import SenseHat
 import time
 import argparse
+import json
 
 from binary_clock import binary_clock as bin_clk
 from weather_info import display_weather, display_temp
 from digital_clock import digital_clock as dgt_clk
+from menu_config import menu_config
+
+# Load colors possibilites
+# Colors values are read in the ./colors file
+with open("colors.json", "r") as colors:
+    colors = json.loads(colors.read())
 
 # Arguments which can be given
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "-c", "--color",
     type=str,
-    choices=(
-        "red", "green", "blue",
-        "purple", "cyan", "yellow",
-        "white", "black"
-    ),
+    choices=colors.keys(),
     help="Color used for display"
 )
 parser.add_argument(
@@ -46,18 +49,6 @@ city = args.location if args.location else None
 
 # Create our sense hat instance
 sense = SenseHat()
-
-# Colors values
-colors = {
-        "red": [255, 0, 0],
-        "green": [0, 255, 0],
-        "blue": [0, 0, 255],
-        "purple": [255, 0, 255],
-        "cyan": [0, 255, 255],
-        "yellow": [255, 255, 0],
-        "white": [255, 255, 255],
-        "black": [0, 0, 0]
-}
 
 
 # Some basical functions
@@ -141,5 +132,7 @@ while True:
                 idx += 1
             if event.direction == "left":
                 idx -= 1
+            if event.direction == "middle":
+                color, rotate, brightness = menu_config(colors, rotate)
 
     functions[idx % len(functions)](sense, color)
