@@ -18,10 +18,16 @@ with open("colors.json", "r") as colors:
 # Arguments which can be given
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "-c", "--color",
+    "-fg", "--foreground",
     type=str,
     choices=colors.keys(),
-    help="Color used for display"
+    help="Color used for display in foreground"
+)
+parser.add_argument(
+    "-bg", "--background",
+    type=str,
+    choices=colors.keys(),
+    help="Color used for display in background"
 )
 parser.add_argument(
     "-r", "--rotation",
@@ -42,7 +48,8 @@ parser.add_argument(
 
 # If arguments aren't given, we give defaults values
 args = parser.parse_args()
-color = args.color if args.color else "white"
+fg_color = args.foreground if args.foreground else "white"
+bg_color = args.background if args.background else "black"
 rotate = args.rotation if args.rotation else 0
 brightness = args.brightness if args.brightness else 1
 city = args.location if args.location else None
@@ -120,7 +127,8 @@ if city:
 
 # Initializing
 idx = -1
-color = [round(nb * brightness) for nb in colors[color]]
+fg_color_code = [round(nb * brightness) for nb in colors[fg_color]]
+bg_color_code = [round(nb * brightness) for nb in colors[bg_color]]
 sense.set_rotation(rotate)
 
 
@@ -133,6 +141,18 @@ while True:
             if event.direction == "left":
                 idx -= 1
             if event.direction == "middle":
-                color, rotate, brightness = menu_config(colors, rotate)
+                fg_color, bg_color, rotate, brightness = menu_config(
+                    sense,
+                    colors,
+                    fg_color,
+                    bg_color,
+                    brightness,
+                    rotate
+                )
 
-    functions[idx % len(functions)](sense, color)
+                # Re-set values after the config
+                fg_color_code = [round(nb * brightness) for nb in colors[fg_color]]
+                bg_color_code = [round(nb * brightness) for nb in colors[bg_color]]
+                sense.set_rotation(rotate)
+
+    functions[idx % len(functions)](sense, fg_color_code)
