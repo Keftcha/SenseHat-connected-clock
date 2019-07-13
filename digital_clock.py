@@ -115,8 +115,8 @@ def display(pixels_states, instance, fg=[255, 255, 255], bg=[0, 0, 0]):
     instance.set_pixels([fg if state else bg for state in pixels_states])
 
 
-def digital_clock(instance, color):
-    display(make_list(), instance, color)
+def digital_clock(instance, fg_color, bg_color):
+    display(make_list(), instance, fg_color, bg_color)
 
 
 if __name__ in "__main__":

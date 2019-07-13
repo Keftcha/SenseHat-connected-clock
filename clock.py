@@ -155,4 +155,4 @@ while True:
                 bg_color_code = [round(nb * brightness) for nb in colors[bg_color]]
                 sense.set_rotation(rotate)
 
-    functions[idx % len(functions)](sense, fg_color_code)
+    functions[idx % len(functions)](sense, fg_color_code, bg_color_code)
