@@ -2,6 +2,7 @@
 
 from sense_hat import SenseHat
 from time import strftime
+from utilities import display_pixels as display
 
 
 def numbers():
@@ -106,13 +107,6 @@ def make_list():
             pixels.extend(nbrs[unit["d"]][line_nb] + nbrs[unit["u"]][line_nb])
 
     return pixels
-
-
-def display(pixels_states, instance, fg=[255, 255, 255], bg=[0, 0, 0]):
-    """Given the states of each pixels (1 = on, 0 = off) in a list,
-    we display the list on the led matrix"""
-
-    instance.set_pixels([fg if state else bg for state in pixels_states])
 
 
 def digital_clock(instance, fg_color, bg_color):

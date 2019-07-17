@@ -5,6 +5,7 @@ import time
 import argparse
 import json
 
+from utilities import calculate_brightness
 from binary_clock import binary_clock as bin_clk
 from weather_info import display_weather, display_temp
 from digital_clock import digital_clock as dgt_clk
@@ -124,11 +125,10 @@ if city:
 
     functions += [weather, outside_temp]
 
-
 # Initializing
 idx = -1
-fg_color_code = [round(nb * brightness) for nb in colors[fg_color]]
-bg_color_code = [round(nb * brightness) for nb in colors[bg_color]]
+fg_color_code = calculate_brightness(brightness, colors[fg_color])
+bg_color_code = calculate_brightness(brightness, colors[bg_color])
 sense.set_rotation(rotate)
 
 
@@ -151,8 +151,8 @@ while True:
                 )
 
                 # Re-set values after the config
-                fg_color_code = [round(nb * brightness) for nb in colors[fg_color]]
-                bg_color_code = [round(nb * brightness) for nb in colors[bg_color]]
+                fg_color_code = calculate_brightness(brightness, fg_color, colors)
+                bg_color_code = calculate_brightness(brightness, bg_color, colors)
                 sense.set_rotation(rotate)
 
     functions[idx % len(functions)](sense, fg_color_code, bg_color_code)
