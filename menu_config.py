@@ -6,8 +6,8 @@ import json
 from utilities import calculate_brightness, display_pixels
 
 def change_fg_color(
-    colors_name, colors, brightness,
-    value, fg_color, bg_color, instance
+    colors_name,
+    instance, value, fg_color, bg_color, colors, brightness
 ):
     # Find the idx of our color
     clr = colors_name.index(fg_color)
@@ -36,8 +36,8 @@ def change_fg_color(
 
 
 def change_bg_color(
-    colors_name, colors, brightness,
-    value, fg_color, bg_color, instance
+    colors_name,
+    instance, value, fg_color, bg_color, colors, brightness
 ):
     # Find the idx of our color
     clr = colors_name.index(bg_color)
@@ -65,8 +65,33 @@ def change_bg_color(
     return new_color
 
 
-def change_brightness(current_multiplicator):
-    None
+def change_brightness(
+    instance, value, fg_color, bg_color, colors, current_multiplicator
+):
+    # Calculate the new brightness multiplicator
+    new_bright_multi = round(current_multiplicator + (value / 10), 1)
+    # The brightness multiplicator cant be lower than 0 or upper than 1
+    new_bright_multi = min(new_bright_multi, 1)
+    new_bright_multi = max(new_bright_multi, 0)
+
+    # Racalculate the color code
+    fg_code = calculate_brightness(new_bright_multi, colors[fg_color])
+    bg_code = calculate_brightness(new_bright_multi, colors[bg_color])
+
+    pixels_state = [
+        0, 0, 1, 0, 0, 1, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        1, 0, 0, 1, 1, 0, 0, 1,
+        0, 0, 1, 0, 0, 1, 0, 0,
+        0, 0, 1, 0, 0, 1, 0, 0,
+        1, 0, 0, 1, 1, 0, 0, 1,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 1, 0, 0, 1, 0, 0
+    ]
+
+    display_pixels(pixels_state, instance, fg_code, bg_code)
+
+    return new_bright_multi
 
 
 def change_rotate(current_rotate):
@@ -87,28 +112,34 @@ def menu_config(
     # List of color name
     colors_name = list(possibles_colors.keys())
 
-    # Config function and specific arguments they need
-    functions = {
-        change_fg_color: (
-            colors_name,
-            possibles_colors,
-            brightness_multiplicator
-        ),
-        change_bg_color: (
-            colors_name,
-            possibles_colors,
-            brightness_multiplicator
-        )
-        #change_brightness: brightness_multiplicator,
-        #change_rotate: rotate
-    }
-
     # Value of configured parameters must be in the same order of `functions`
     values = [
         fg_color,
         bg_color,
         brightness_multiplicator,
         rotate
+    ]
+
+    # Config function and specific arguments they need
+    functions = [
+        {
+            "func": change_fg_color,
+            "arguments": (
+                colors_name,
+            ),
+        },
+        {
+            "func": change_bg_color,
+            "arguments": (
+                colors_name,
+            )
+        },
+        {
+            "func": change_brightness,
+            "arguments": (
+            )
+        }
+        #change_rotate: rotate
     ]
 
     idx = 0
@@ -136,12 +167,15 @@ def menu_config(
                     value = -1
 
         idx = idx % len(functions)
-        values[idx] = list(functions.keys())[idx](
-            *list(functions.values())[idx],
+        values[idx] = functions[idx]["func"](
+            *functions[idx]["arguments"],
+            sense,
             value,
             values[0],    # fg_colog
             values[1],    # bg_color
-            sense
+            possibles_colors,    # colors name and their code
+            values[2],    # brightness_multiplicator
+
         )
 
 if __name__ in "__main__":
