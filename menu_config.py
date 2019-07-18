@@ -35,9 +35,34 @@ def change_fg_color(
     return new_color
 
 
+def change_bg_color(
+    colors_name, colors, brightness,
+    value, fg_color, bg_color, instance
+):
+    # Find the idx of our color
+    clr = colors_name.index(bg_color)
 
-def change_bg_color(colors):
-    None
+    # Change the color
+    new_color = colors_name[(clr + value) % len(colors_name)]
+
+    # Get the brightness of the new color
+    new_color_code = calculate_brightness(brightness, colors[new_color])
+    fg_code = calculate_brightness(brightness, colors[fg_color])
+
+    pixels_state = [
+        1, 1, 1, 0, 0, 1, 1, 1,
+        1, 0, 0, 1, 1, 0, 0, 0,
+        1, 0, 0, 1, 1, 0, 0, 0,
+        1, 1, 1, 0, 1, 0, 0, 0,
+        1, 0, 0, 1, 1, 0, 1, 1,
+        1, 0, 0, 1, 1, 0, 0, 1,
+        1, 0, 0, 1, 1, 0, 0, 1,
+        1, 1, 1, 0, 0, 1, 1, 0
+    ]
+
+    display_pixels(pixels_state, instance, fg_code, new_color_code)
+
+    return new_color
 
 
 def change_brightness(current_multiplicator):
@@ -68,8 +93,12 @@ def menu_config(
             colors_name,
             possibles_colors,
             brightness_multiplicator
+        ),
+        change_bg_color: (
+            colors_name,
+            possibles_colors,
+            brightness_multiplicator
         )
-        #change_bg_color: possibles_colors,
         #change_brightness: brightness_multiplicator,
         #change_rotate: rotate
     }
