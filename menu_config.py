@@ -7,7 +7,7 @@ from utilities import calculate_brightness, display_pixels
 
 def change_fg_color(
     colors_name,
-    instance, value, fg_color, bg_color, colors, brightness
+    instance, value, brightness, fg_color, bg_color, colors, _
 ):
     # Find the idx of our color
     clr = colors_name.index(fg_color)
@@ -37,7 +37,7 @@ def change_fg_color(
 
 def change_bg_color(
     colors_name,
-    instance, value, fg_color, bg_color, colors, brightness
+    instance, value, brightness, fg_color, bg_color, colors, _
 ):
     # Find the idx of our color
     clr = colors_name.index(bg_color)
@@ -66,7 +66,7 @@ def change_bg_color(
 
 
 def change_brightness(
-    instance, value, fg_color, bg_color, colors, current_multiplicator
+    instance, value, current_multiplicator, fg_color, bg_color, colors, _
 ):
     # Calculate the new brightness multiplicator
     new_bright_multi = round(current_multiplicator + (value / 10), 1)
@@ -94,11 +94,33 @@ def change_brightness(
     return new_bright_multi
 
 
-def change_rotate(current_rotate):
-    rotates = (0, 90, 180, 270)
-    idx = rotates.index(current_rotate)
-
+def change_rotate(
+        instance, value, current_multiplicator, fg_color, bg_color, colors, current_rotate,
+):
     # With joystich input, change the rotate
+    new_rotate = (current_rotate + value * 90) % 360
+
+    # Racalculate the color code
+    fg_code = calculate_brightness(current_multiplicator, colors[fg_color])
+    bg_code = calculate_brightness(current_multiplicator, colors[bg_color])
+
+    # Change the rotate on the sense hat
+    instance.set_rotation(new_rotate)
+
+    pixels_state = [
+        0, 0, 0, 0, 0, 1, 1, 1,
+        0, 0, 0, 0, 0, 0, 1, 1,
+        0, 0, 0, 0, 0, 1, 0, 1,
+        0, 0, 0, 0, 1, 0, 0, 0,
+        1, 0, 1, 0, 0, 1, 1, 0,
+        1, 0, 1, 0, 0, 1, 0, 1,
+        1, 0, 1, 0, 0, 1, 1, 0,
+        1, 1, 1, 0, 0, 1, 0, 0
+    ]
+
+    display_pixels(pixels_state, instance, fg_code, bg_code)
+
+    return new_rotate
 
 
 def menu_config(
@@ -114,14 +136,19 @@ def menu_config(
 
     # Value of configured parameters must be in the same order of `functions`
     values = [
+        brightness_multiplicator,
         fg_color,
         bg_color,
-        brightness_multiplicator,
         rotate
     ]
 
     # Config function and specific arguments they need
     functions = [
+        {
+            "func": change_brightness,
+            "arguments": (
+            )
+        },
         {
             "func": change_fg_color,
             "arguments": (
@@ -135,11 +162,10 @@ def menu_config(
             )
         },
         {
-            "func": change_brightness,
+            "func": change_rotate,
             "arguments": (
             )
         }
-        #change_rotate: rotate
     ]
 
     idx = 0
@@ -171,11 +197,11 @@ def menu_config(
             *functions[idx]["arguments"],
             sense,
             value,
-            values[0],    # fg_colog
-            values[1],    # bg_color
+            values[0],    # brightness_multiplicator
+            values[1],    # fg_colog
+            values[2],    # bg_color
             possibles_colors,    # colors name and their code
-            values[2],    # brightness_multiplicator
-
+            values[3]    # curent rotate
         )
 
 if __name__ in "__main__":
