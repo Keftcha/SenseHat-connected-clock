@@ -5,6 +5,7 @@ import json
 
 from utilities import calculate_brightness, display_pixels
 
+
 def change_fg_color(
     colors_name,
     instance, value, brightness, fg_color, bg_color, colors, _
@@ -95,7 +96,8 @@ def change_brightness(
 
 
 def change_rotate(
-        instance, value, current_multiplicator, fg_color, bg_color, colors, current_rotate,
+        instance, value, current_multiplicator,
+        fg_color, bg_color, colors, current_rotate
 ):
     # With joystich input, change the rotate
     new_rotate = (current_rotate + value * 90) % 360
@@ -173,11 +175,12 @@ def menu_config(
     while True:
 
         # The value is the changer parameter,
-        # if he is positive, the function will encreate the changed parameter
-        # if he us negative, the function will decrease the changed parameter
+        # if he is positive, the function will encreate the changed parameter
+        # if he us negative, the function will decrease the changed parameter
         # otherwise, if it's 0 nothing will happend
         value = 0
 
+        # Get joystick events
         for event in sense.stick.get_events():
             if event.action == "pressed":
                 if event.direction == "middle":
@@ -203,6 +206,7 @@ def menu_config(
             possibles_colors,    # colors name and their code
             values[3]    # curent rotate
         )
+
 
 if __name__ in "__main__":
     sense = SenseHat()
