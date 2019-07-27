@@ -46,6 +46,11 @@ parser.add_argument(
     type=str,
     help="Give the location you want to get the weather"
 )
+parser.add_argument(
+    "-i", "--interactive",
+    help="Launch the program in interactive mode",
+    action="store_true"
+)
 
 # If arguments aren't given, we give defaults values
 args = parser.parse_args()
@@ -54,6 +59,49 @@ bg_color = args.background if args.background else "black"
 rotate = args.rotation if args.rotation else 0
 brightness = args.brightness if args.brightness else 1
 city = args.location if args.location else None
+
+
+# Begin the interactive mode if needed
+if args.interactive:
+    fg_interactive = input("Choose a foreground color.\n\
+Choices: {}\n\
+Current: {}\n".format(list(colors.keys()), fg_color))
+    bg_interactive = input("Choose a background color.\n\
+Choices: {}\n\
+Current: {}\n".format(list(colors.keys()), bg_color))
+    rotate_interactive = input("Choose a rotation for the display\n\
+Choices: 0, 90, 180, 270\n\
+Current: {}\n".format(rotate))
+    brightness_interactive = input("Choose the brightness intensity.\n\
+0 is the lowest, 1 is the highest, choose a number between.\n\
+Current: {}\n".format(brightness))
+    city_interactive = input("Choose the city from where you want the weather\n\
+Current: {}\n".format(city))
+
+    # If nothing is given or arguments given are invalid
+    # in the interactive mode, we use values given in parameters
+    if fg_interactive in colors.keys():
+        fg_color = fg_interactive
+    if bg_interactive in colors.keys():
+        bg_color = bg_interactive
+    if rotate_interactive in ("0", "90", "180", "270"):
+        rotate = int(rotate_interactive)
+    if brightness_interactive and 0 <= float(brightness_interactive) <= 1:
+        brightness = float(brightness_interactive)
+    city = city_interactive or city
+
+    # Display final parameters
+    print("\n\
+The foreground color is: {fg}\n\
+The background color is: {bg}\n\
+The rotation is set to: {rt}\n\
+The brightness is set to: {brtns}\n\
+The choosen city is: {city}\n\
+    ".format(
+        fg=fg_color, bg=bg_color, rt=rotate,
+        brtns=brightness, city=city
+    ))
+
 
 # Create our sense hat instance
 sense = SenseHat()
