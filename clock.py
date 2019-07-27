@@ -11,7 +11,7 @@ from weather_info import display_weather, display_temp
 from digital_clock import digital_clock as dgt_clk
 from menu_config import menu_config
 
-# Load colors possibilites
+# Load colors possibilites
 # Colors values are read in the ./colors file
 with open("colors.json", "r") as colors:
     colors = json.loads(colors.read())
@@ -103,8 +103,8 @@ functions = [date, day, hours, temperature, bin_clk, dgt_clk]
 
 # Weather functions
 if city:
-    """If a city is given we declare and add the functions which use the city
-    for the weather."""
+    # If a city is given we declare and add the functions which
+    # use the city for the weather.
     def weather(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
         """Display the weather of the city which is given."""
         display_weather(
@@ -127,8 +127,9 @@ if city:
 
 # Initializing
 idx = -1
-fg_color_code = calculate_brightness(brightness, colors[fg_color])
-bg_color_code = calculate_brightness(brightness, colors[bg_color])
+# Code of the color as a list of three int between 0 and 255
+fg_code = calculate_brightness(brightness, colors[fg_color])
+bg_code = calculate_brightness(brightness, colors[bg_color])
 sense.set_rotation(rotate)
 
 
@@ -141,7 +142,7 @@ while True:
             if event.direction == "left":
                 idx -= 1
             if event.direction == "middle":
-                fg_color, bg_color, rotate, brightness = menu_config(
+                brightness, fg_color, bg_color, rotate = menu_config(
                     sense,
                     colors,
                     fg_color,
@@ -151,8 +152,8 @@ while True:
                 )
 
                 # Re-set values after the config
-                fg_color_code = calculate_brightness(brightness, fg_color, colors)
-                bg_color_code = calculate_brightness(brightness, bg_color, colors)
+                fg_code = calculate_brightness(brightness, colors[fg_color])
+                bg_code = calculate_brightness(brightness, colors[bg_color])
                 sense.set_rotation(rotate)
 
-    functions[idx % len(functions)](sense, fg_color_code, bg_color_code)
+    functions[idx % len(functions)](sense, fg_code, bg_code)
