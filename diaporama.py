@@ -12,14 +12,14 @@ def diaporama(instance, directory_path, time_sleep=3):
 
     idx = 0
     while True:
-        sense.clear()
+        instance.clear()
         instance.load_image(directory_path + pictures[idx])
         sleep(time_sleep)
         idx += 1
         idx = idx % len(pictures)
 
         # Break if the joystick is toutched
-        if sense.stick.get_events():
+        if instance.stick.get_events():
             break
 
 
