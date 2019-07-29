@@ -10,6 +10,7 @@ from binary_clock import binary_clock as bin_clk
 from weather_info import display_weather, display_temp
 from digital_clock import digital_clock as dgt_clk
 from menu_config import menu_config
+from binary_clock_block import binary_clock_block as bin_clk_blk
 
 # Load colors possibilites
 # Colors values are read in the ./colors file
@@ -146,10 +147,6 @@ The choosen city is: {city}\n\
     ))
 
 
-# Create our sense hat instance
-sense = SenseHat()
-
-
 # Some basical functions
 def temperature(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
     """Display on the instance of SenseHat() the current temperature (XX,X)"""
@@ -189,7 +186,7 @@ def hours(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
 
 
 # All current functions are in this list
-functions = [date, day, hours, temperature, bin_clk, dgt_clk]
+functions = [date, day, hours, temperature, bin_clk, dgt_clk, bin_clk_blk]
 
 
 # Weather functions
@@ -215,6 +212,10 @@ if city:
         )
 
     functions += [weather, outside_temp]
+
+
+# Create our sense hat instance
+sense = SenseHat()
 
 # Initializing
 idx = -1
