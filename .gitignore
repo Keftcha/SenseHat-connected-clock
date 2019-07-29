@@ -3,3 +3,6 @@
 
 # python __pycache__ folder
 __pycache__
+
+# don't commit the comfig.json file if it change
+config.json
