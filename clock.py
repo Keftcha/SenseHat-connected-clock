@@ -52,12 +52,54 @@ parser.add_argument(
     action="store_true"
 )
 
-# If arguments aren't given, we give defaults values
+# Load the configuration
+# Configuration values are read in the ./config.json file
+# It arguments aren't in the config, we give defaults values
+with open("config.json", "r") as config:
+    config = json.loads(config.read())
+
+    # Foreground color
+    if (
+        "foreground_color" in config and
+        config["foreground_color"] in colors.keys()
+    ):
+        fg_color = config["foreground_color"]
+    else:
+        fg_color = "white"
+    # Background color
+    if (
+        "background_color" in config and
+        config["background_color"] in colors.keys()
+    ):
+        bg_color = config["background_color"]
+    else:
+        bg_color = "black"
+    # Rotation
+    if (
+        "rotation" in config and
+        config["rotation"] in (0, 90, 180, 270)
+    ):
+        rotate = int(config["rotation"])
+    else:
+        rotate = 0
+    # Brightness
+    if (
+        "brightness" in config and
+        config["brightness"] and 0 <= config["brightness"] <= 1
+    ):
+        brightness = float(config["brightness"])
+    else:
+        brightness = 1
+    # City, fot the weather
+    if "city" in config:
+        city = config["city"] or None
+
+# If arguments aren't given, we use the one in the config
 args = parser.parse_args()
-fg_color = args.foreground if args.foreground else "white"
-bg_color = args.background if args.background else "black"
-rotate = args.rotation if args.rotation else 0
-brightness = args.brightness if args.brightness else 1
+fg_color = args.foreground if args.foreground else fg_color
+bg_color = args.background if args.background else bg_color
+rotate = args.rotation if args.rotation else rotate
+brightness = args.brightness if args.brightness else brightness
 city = args.location if args.location else None
 
 
@@ -75,10 +117,11 @@ Current: {}\n".format(rotate))
     brightness_interactive = input("Choose the brightness intensity.\n\
 0 is the lowest, 1 is the highest, choose a number between.\n\
 Current: {}\n".format(brightness))
-    city_interactive = input("Choose the city from where you want the weather\n\
+    city_interactive = input("Choose the city \
+from where you want the weather\n\
 Current: {}\n".format(city))
 
-    # If nothing is given or arguments given are invalid
+    # If nothing is given or arguments given are invalid
     # in the interactive mode, we use values given in parameters
     if fg_interactive in colors.keys():
         fg_color = fg_interactive
@@ -90,7 +133,7 @@ Current: {}\n".format(city))
         brightness = float(brightness_interactive)
     city = city_interactive or city
 
-    # Display final parameters
+    # Display final parameters
     print("\n\
 The foreground color is: {fg}\n\
 The background color is: {bg}\n\
@@ -190,7 +233,7 @@ while True:
             if event.direction == "left":
                 idx -= 1
             if event.direction == "middle":
-                brightness, fg_color, bg_color, rotate = menu_config(
+                new_configured_values = menu_config(
                     sense,
                     colors,
                     fg_color,
@@ -198,6 +241,15 @@ while True:
                     brightness,
                     rotate
                 )
+
+                # Write the new configuration in the ./config.json
+                with open("config.json", "w") as config:
+                    config.write(json.dumps(new_configured_values))
+
+                brightness = new_configured_values["brightness"]
+                fg_color = new_configured_values["foreground_color"]
+                bg_color = new_configured_values["background_color"]
+                rotate = new_configured_values["rotation"]
 
                 # Re-set values after the config
                 fg_code = calculate_brightness(brightness, colors[fg_color])
