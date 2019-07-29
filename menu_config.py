@@ -136,14 +136,6 @@ def menu_config(
     # List of color name
     colors_name = list(possibles_colors.keys())
 
-    # Value of configured parameters must be in the same order of `functions`
-    values = [
-        brightness_multiplicator,
-        fg_color,
-        bg_color,
-        rotate
-    ]
-
     # Config function and specific arguments they need
     functions = [
         {
@@ -170,6 +162,14 @@ def menu_config(
         }
     ]
 
+    # Value of configured parameters must be in the same order of `functions`
+    values = [
+        brightness_multiplicator,
+        fg_color,
+        bg_color,
+        rotate
+    ]
+
     idx = 0
 
     while True:
@@ -184,7 +184,12 @@ def menu_config(
         for event in sense.stick.get_events():
             if event.action == "pressed":
                 if event.direction == "middle":
-                    return values
+                    return {
+                        "brightness": values[0],
+                        "foreground_color": values[1],
+                        "background_color": values[2],
+                        "rotation": values[3]
+                    }
                 if event.direction == "right":
                     idx += 1
                 if event.direction == "left":
