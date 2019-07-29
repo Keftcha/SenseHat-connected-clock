@@ -62,4 +62,4 @@ def binary_clock(instance, fg_color, bg_color):
 if __name__ in "__main__":
     sense = SenseHat()
     while True:
-        binary_clock(sense, [255, 255, 255])
+        binary_clock(sense, [255, 255, 255], [0, 0, 0])
