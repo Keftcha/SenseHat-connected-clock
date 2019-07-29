@@ -97,11 +97,11 @@ with open("config.json", "r") as config:
 
 # If arguments aren't given, we use the one in the config
 args = parser.parse_args()
-fg_color = args.foreground if args.foreground else fg_color
-bg_color = args.background if args.background else bg_color
-rotate = args.rotation if args.rotation else rotate
-brightness = args.brightness if args.brightness else brightness
-city = args.location if args.location else None
+fg_color = args.foreground if args.foreground is not None else fg_color
+bg_color = args.background if args.background is not None  else bg_color
+rotate = args.rotation if args.rotation is not None else rotate
+brightness = args.brightness if args.brightness is not None else brightness
+city = args.location if args.location is not None else None
 
 
 # Begin the interactive mode if needed
