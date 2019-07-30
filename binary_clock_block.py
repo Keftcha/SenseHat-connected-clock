@@ -51,4 +51,4 @@ if __name__ in "__main__":
     sense = SenseHat()
     sense.set_rotation(180)
     while True:
-        binary_clock_block(sense, [255, 255, 255], [0, 0, 0])
+        binary_clock_block(sense, [255, 255, 255], [0, 0, 0], 0)

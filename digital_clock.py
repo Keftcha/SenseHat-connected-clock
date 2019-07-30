@@ -42,4 +42,4 @@ def digital_clock(instance, fg_color, bg_color, sleep_time):
 if __name__ in "__main__":
     sense = SenseHat()
     while True:
-        digital_clock(sense, [255, 255, 255])
+        digital_clock(sense, [255, 255, 255], [0, 0, 0], 0)
