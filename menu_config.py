@@ -4,11 +4,12 @@ from sense_hat import SenseHat
 import json
 
 from package.utilities import calculate_brightness, display_pixels
+from package.numbers import numbers
 
 
 def change_fg_color(
     colors_name,
-    instance, value, brightness, fg_color, bg_color, colors, _
+    instance, value, brightness, fg_color, bg_color, colors, *_
 ):
     # Find the idx of our color
     clr = colors_name.index(fg_color)
@@ -38,7 +39,7 @@ def change_fg_color(
 
 def change_bg_color(
     colors_name,
-    instance, value, brightness, fg_color, bg_color, colors, _
+    instance, value, brightness, fg_color, bg_color, colors, *_
 ):
     # Find the idx of our color
     clr = colors_name.index(bg_color)
@@ -67,7 +68,8 @@ def change_bg_color(
 
 
 def change_brightness(
-    instance, value, current_multiplicator, fg_color, bg_color, colors, _
+    instance, value, current_multiplicator,
+    fg_color, bg_color, colors, *_
 ):
     # Calculate the new brightness multiplicator
     new_bright_multi = round(current_multiplicator + (value / 10), 1)
@@ -97,7 +99,7 @@ def change_brightness(
 
 def change_rotate(
         instance, value, current_multiplicator,
-        fg_color, bg_color, colors, current_rotate
+        fg_color, bg_color, colors, current_rotate, _
 ):
     # With joystich input, change the rotate
     new_rotate = (current_rotate + value * 90) % 360
@@ -125,13 +127,44 @@ def change_rotate(
     return new_rotate
 
 
+def change_scroll_speed(
+    instance, value, brightness,
+    fg_color, bg_color, colors, _, current_scroll_speed
+):
+    # The new speed
+    new_speed = max(round(current_scroll_speed + value/10, 1), 0.0)
+    speed = str(new_speed).split(".")
+
+    nbrs = numbers()
+
+    # The first four lines (the numbers)
+    numbers_line = tuple(zip(nbrs[int(speed[0])], nbrs[int(speed[1])]))
+
+    pixels_state = [0] * 32
+
+    # Put the first four lines (numbers) in the pixel state
+    for nb in numbers_line:
+        for digit in nb:
+            for pixel in digit:
+                pixels_state.append(pixel)
+
+    # Calculate the color code
+    fg_code = calculate_brightness(brightness, colors[fg_color])
+    bg_code = calculate_brightness(brightness, colors[bg_color])
+
+    display_pixels(pixels_state, instance, fg_code, bg_code)
+
+    return new_speed
+
+
 def menu_config(
     sense,
     possibles_colors,
     fg_color,
     bg_color,
     brightness_multiplicator,
-    rotate
+    rotate,
+    scroll_speed
 ):
     # List of color name
     colors_name = list(possibles_colors.keys())
@@ -159,6 +192,11 @@ def menu_config(
             "func": change_rotate,
             "arguments": (
             )
+        },
+        {
+            "func": change_scroll_speed,
+            "arguments": (
+            )
         }
     ]
 
@@ -167,7 +205,8 @@ def menu_config(
         brightness_multiplicator,
         fg_color,
         bg_color,
-        rotate
+        rotate,
+        scroll_speed
     ]
 
     idx = 0
@@ -188,7 +227,8 @@ def menu_config(
                         "brightness": values[0],
                         "foreground_color": values[1],
                         "background_color": values[2],
-                        "rotation": values[3]
+                        "rotation": values[3],
+                        "scroll_speed": values[4]
                     }
                 if event.direction == "right":
                     idx += 1
@@ -209,7 +249,8 @@ def menu_config(
             values[1],    # fg_colog
             values[2],    # bg_color
             possibles_colors,    # colors name and their code
-            values[3]    # curent rotate
+            values[3],    # curent rotate
+            values[4]    # scroll speed or refresh rate
         )
 
 
@@ -226,5 +267,6 @@ if __name__ in "__main__":
         "blue",
         "yellow",
         1,
-        180
+        180,
+        0.1
     ))

@@ -101,10 +101,10 @@ with open("config.json", "r") as config:
         city = config["city"] or None
     # Scroll speed of refresh time
     if (
-        "speed" in config and
-        config["speed"] >= 0
+        "scroll_speed" in config and
+        config["scroll_speed"] >= 0
     ):
-        speed = config["speed"]
+        speed = config["scroll_speed"]
     else:
         speed = 0.1
 
@@ -112,7 +112,7 @@ with open("config.json", "r") as config:
 # If arguments aren't given, we use the one in the config
 args = parser.parse_args()
 fg_color = args.foreground if args.foreground is not None else fg_color
-bg_color = args.background if args.background is not None  else bg_color
+bg_color = args.background if args.background is not None else bg_color
 rotate = args.rotation if args.rotation is not None else rotate
 brightness = args.brightness if args.brightness is not None else brightness
 city = args.location if args.location is not None else None
@@ -149,7 +149,10 @@ Current: {}\n".format(speed))
         bg_color = bg_interactive
     if rotate_interactive in ("0", "90", "180", "270"):
         rotate = int(rotate_interactive)
-    if brightness_interactive is not "" and 0 <= float(brightness_interactive) <= 1:
+    if(
+        brightness_interactive is not "" and
+        0 <= float(brightness_interactive) <= 1
+    ):
         brightness = float(brightness_interactive)
     city = city_interactive or city
     if speed_interactive is not "" and float(speed_interactive) >= 0:
@@ -206,7 +209,8 @@ while True:
                     fg_color,
                     bg_color,
                     brightness,
-                    rotate
+                    rotate,
+                    speed
                 )
 
                 # Write the new configuration in the ./config.json
@@ -217,6 +221,7 @@ while True:
                 fg_color = new_configured_values["foreground_color"]
                 bg_color = new_configured_values["background_color"]
                 rotate = new_configured_values["rotation"]
+                speed = new_configured_values["scroll_speed"]
 
                 # Re-set values after the config
                 fg_code = calculate_brightness(brightness, colors[fg_color])
