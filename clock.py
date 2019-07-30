@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 from sense_hat import SenseHat
-import time
 import argparse
 import json
 
-from utilities import calculate_brightness
+from package.basical_functions import temperature, date, day, hours
+from package.utilities import calculate_brightness
 from binary_clock import binary_clock as bin_clk
-from weather_info import display_weather, display_temp
+from package.weather_package.weather_functions import weather, outside_temp
 from digital_clock import digital_clock as dgt_clk
 from menu_config import menu_config
 from binary_clock_block import binary_clock_block as bin_clk_blk
@@ -147,70 +147,14 @@ The choosen city is: {city}\n\
     ))
 
 
-# Some basical functions
-def temperature(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
-    """Display on the instance of SenseHat() the current temperature (XX,X)"""
-    instance.show_message(
-        str(round(instance.get_temperature(), 1)),
-        text_colour=fg_color,
-        back_colour=bg_color
-    )
-
-
-def date(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
-    """Display the date in the french format (dd/mm/yyyy)"""
-    instance.show_message(
-        time.strftime("%d/%m/%Y"),
-        text_colour=fg_color,
-        back_colour=bg_color
-    )
-
-
-def day(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
-    """Display the day, the number of the day and the month (name_day,
-    number_day, name_month)"""
-    instance.show_message(
-        time.strftime("%d %b."),
-        text_colour=fg_color,
-        back_colour=bg_color
-    )
-
-
-def hours(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
-    """Display the hours (24 hours format) and the minutes (hh:mm)"""
-    instance.show_message(
-        time.strftime("%H:%M"),
-        text_colour=fg_color,
-        back_colour=bg_color
-    )
-
-
 # All current functions are in this list
 functions = [date, day, hours, temperature, bin_clk, dgt_clk, bin_clk_blk]
 
 
 # Weather functions
 if city:
-    # If a city is given we declare and add the functions which
+    # If a city is given we add the functions which
     # use the city for the weather.
-    def weather(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
-        """Display the weather of the city which is given."""
-        display_weather(
-            city,
-            instance,
-            text_colour=fg_color,
-            back_colour=bg_color
-        )
-
-    def outside_temp(instance, fg_color=[255, 255, 255], bg_color=[0, 0, 0]):
-        """Display the temperature of the city which is given."""
-        display_temp(
-            city,
-            instance,
-            text_colour=fg_color,
-            back_colour=bg_color
-        )
-
     functions += [weather, outside_temp]
 
 

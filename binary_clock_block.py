@@ -3,7 +3,7 @@
 from sense_hat import SenseHat
 from time import strftime
 
-from utilities import display_pixels
+from package.utilities import display_pixels
 
 
 def binary_time():

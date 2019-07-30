@@ -3,7 +3,7 @@
 from sense_hat import SenseHat
 import json
 
-from utilities import calculate_brightness, display_pixels
+from package.utilities import calculate_brightness, display_pixels
 
 
 def change_fg_color(
