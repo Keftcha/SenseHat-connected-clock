@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from sense_hat import SenseHat
-from time import strftime
+from time import strftime, sleep
 
 from package.utilities import display_pixels as display
 
@@ -110,8 +110,9 @@ def make_list():
     return pixels
 
 
-def digital_clock(instance, fg_color, bg_color):
+def digital_clock(instance, fg_color, bg_color, sleep_time):
     display(make_list(), instance, fg_color, bg_color)
+    sleep(sleep_time)
 
 
 if __name__ in "__main__":

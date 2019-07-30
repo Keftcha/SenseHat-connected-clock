@@ -52,6 +52,11 @@ parser.add_argument(
     help="Launch the program in interactive mode",
     action="store_true"
 )
+parser.add_argument(
+    "-s", "--speed",
+    type=float,
+    help="The scroll speed of the refresh rate"
+)
 
 # Load the configuration
 # Configuration values are read in the ./config.json file
@@ -80,7 +85,7 @@ with open("config.json", "r") as config:
         "rotation" in config and
         config["rotation"] in (0, 90, 180, 270)
     ):
-        rotate = int(config["rotation"])
+        rotate = config["rotation"]
     else:
         rotate = 0
     # Brightness
@@ -94,6 +99,15 @@ with open("config.json", "r") as config:
     # City, fot the weather
     if "city" in config:
         city = config["city"] or None
+    # Scroll speed of refresh time
+    if (
+        "speed" in config and
+        config["speed"] >= 0
+    ):
+        speed = config["speed"]
+    else:
+        speed = 0.1
+
 
 # If arguments aren't given, we use the one in the config
 args = parser.parse_args()
@@ -102,6 +116,7 @@ bg_color = args.background if args.background is not None  else bg_color
 rotate = args.rotation if args.rotation is not None else rotate
 brightness = args.brightness if args.brightness is not None else brightness
 city = args.location if args.location is not None else None
+speed = args.speed if args.speed is not None else speed
 
 
 # Begin the interactive mode if needed
@@ -121,6 +136,10 @@ Current: {}\n".format(brightness))
     city_interactive = input("Choose the city \
 from where you want the weather\n\
 Current: {}\n".format(city))
+    speed_interactive = input("Choose the scroll speed or\
+the refresh rate\n\
+Choose a float superior or equal to 0\n\
+Current: {}\n".format(speed))
 
     # If nothing is given or arguments given are invalid
     # in the interactive mode, we use values given in parameters
@@ -130,9 +149,11 @@ Current: {}\n".format(city))
         bg_color = bg_interactive
     if rotate_interactive in ("0", "90", "180", "270"):
         rotate = int(rotate_interactive)
-    if brightness_interactive and 0 <= float(brightness_interactive) <= 1:
+    if brightness_interactive is not "" and 0 <= float(brightness_interactive) <= 1:
         brightness = float(brightness_interactive)
     city = city_interactive or city
+    if speed_interactive is not "" and float(speed_interactive) >= 0:
+        speed = float(speed_interactive)
 
     # Display final parameters
     print("\n\
@@ -141,9 +162,10 @@ The background color is: {bg}\n\
 The rotation is set to: {rt}\n\
 The brightness is set to: {brtns}\n\
 The choosen city is: {city}\n\
-    ".format(
+The scroll of refresh rate is: {scrl}\n\
+".format(
         fg=fg_color, bg=bg_color, rt=rotate,
-        brtns=brightness, city=city
+        brtns=brightness, city=city, scrl=speed
     ))
 
 
@@ -201,4 +223,4 @@ while True:
                 bg_code = calculate_brightness(brightness, colors[bg_color])
                 sense.set_rotation(rotate)
 
-    functions[idx % len(functions)](sense, fg_code, bg_code)
+    functions[idx % len(functions)](sense, fg_code, bg_code, speed)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from sense_hat import SenseHat
-from time import strftime
+from time import strftime, sleep
 
 from package.utilities import display_pixels
 
@@ -42,8 +42,9 @@ def display(time, instance, on_color=[255, 255, 255], off_color=[0, 0, 0]):
     display_pixels(pixels_state, instance, on_color, off_color)
 
 
-def binary_clock_block(instance, fg_color, bg_color):
+def binary_clock_block(instance, fg_color, bg_color, sleep_time):
     display(binary_time(), instance, fg_color, bg_color)
+    sleep(sleep_time)
 
 
 if __name__ in "__main__":
