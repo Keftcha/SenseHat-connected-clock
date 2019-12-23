@@ -6,6 +6,3 @@ __pycache__
 
 # don't commit the comfig.json file if it change
 config.json
-
-# don't commit the builded site by mkdocs
-site/

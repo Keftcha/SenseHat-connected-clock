@@ -12,6 +12,7 @@ nav:
 
 repo_url: "https://github.com/Keftcha/SenseHat-connected-clock"
 site_author: "Keftcha"
+site_dir: "../docs"
 
 markdown_extensions:
         - toc:
