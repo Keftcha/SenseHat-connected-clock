@@ -1,0 +1,21 @@
+site_name: SenseHat connected clock
+theme: readthedocs
+
+nav:
+    - Home: "index.md"
+    - Feature: "feature.md"
+    - Install: "install.md"
+    - Usage: "usage.md"
+    - About:
+        - Contributing: "contributing.md"
+        - License: "license.md"
+
+repo_url: "https://github.com/Keftcha/SenseHat-connected-clock"
+site_author: "Keftcha"
+
+markdown_extensions:
+        - toc:
+            permalink: True
+            separator: "_"
+
+strict: True
