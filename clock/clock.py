@@ -60,7 +60,7 @@ parser.add_argument(
 
 # Load the configuration
 # Configuration values are read in the ./config.json file
-# It arguments aren't in the config, we give defaults values
+# If arguments aren't in the config, we give defaults values
 with open("config.json", "r") as config:
     config = json.loads(config.read())
 
