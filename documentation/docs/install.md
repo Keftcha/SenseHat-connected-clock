@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This project is made to on a
+This project is made on a
 [Raspberry Pi Model
 3](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/ "Raspberry Pi 3")
  with the [Sense HAT](https://www.raspberrypi.org/products/sense-hat/ "Sense
