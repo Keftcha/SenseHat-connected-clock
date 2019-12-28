@@ -29,40 +29,74 @@ Here is the list of programs that are in this project.
 
 ## Clock
 
-to do
+The main programm of the project.  
+That program is a switcher for other programs.
+With it, you have acces to: 
+
+- **Binary clocks**
+- **Digital clock**
+- **Menu config**
+- **Temperature of the clock**
+- **The date (with format: *dd/mm/yyyy* and *day_number month_short_name.*)**
+- **The time (with format: *hh:mm*)**
 
 ---
 
 ## Binary clocks
 
-to do
+Display a [binary clock](https://en.wikipedia.org/wiki/Binary_clock "Wikipedia - Binary clock").  
+Two modes are available.
 
 ---
 
 ### Block mode
 
-to do
+Dots are displayed on the martix using 2 by 2 LED.  
+This mode use all the space of the LED matrix.
 
 ---
 
 ### Hyphen mode
 
-to do
+Dots are displayer on the matrix using 1 LED for the height and 2 for the width.  
+This mode only use a part of the LED matrix.
 
 ---
 
 ## Digital clock
 
-to do
+Display a digital clock.
+
+The matrix LED is divide in four part:
+
+- Top Left (hours tens)
+- Top Right (hours units)
+- Bottom Left (minutes tens)
+- Bottom Right (minutes units)
+
+Hours is on the top and minutes on the bottom of the LEF matrix
 
 ---
 
 ## Menu config
 
-to do
+Configuration menu.
+
+You can configure:
+
+- The brightness
+- The foreground color
+- The background color
+- The rotation angle
+- The text scroll speed
+
+The output is a json formated string.
 
 ---
 
 ## Diaporama
 
-to do
+Display a diaporama of pictures.
+
+Pictures must have a size of 8 by 8 pixels and
+be placed in the folder `./clock/pictures/` of the project.

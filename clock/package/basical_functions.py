@@ -35,8 +35,7 @@ def day(
     fg_color=[255, 255, 255], bg_color=[0, 0, 0],
     scroll=0.1
 ):
-    """Display the day, the number of the day and the month (name_day,
-    number_day, name_month)"""
+    """Display the day number and the month"""
     instance.show_message(
         strftime("%d %b."),
         text_colour=fg_color,
