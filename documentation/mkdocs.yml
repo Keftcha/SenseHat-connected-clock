@@ -8,6 +8,7 @@ nav:
     - Usage: "usage.md"
     - About:
         - Contributing: "contributing.md"
+        - Issues: "issues.md"
         - License: "license.md"
 
 repo_url: "https://github.com/Keftcha/SenseHat-connected-clock"
