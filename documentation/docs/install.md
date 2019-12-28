@@ -39,20 +39,21 @@ The clock folder is where all the source code of the application is.
 ### The `docs` folder
 
 The docs folder is the source code of the documentation generate by
-[MkDocs](https://www.mkdocs.org/ "MkDocs site")
+[MkDocs](https://www.mkdocs.org/ "MkDocs site").
 
 ### The `documentation` folder
 
 The documentation folder is the source code for the generation of the documentation by 
-[MkDocs](https://www.mkdocs.org/ "MkDocs site")
+[MkDocs](https://www.mkdocs.org/ "MkDocs site").
 
 ### The `LICENSE` file
 
-The LICENSE file is the liscense of the project
+The LICENSE file is the liscense of the project.  
+You can read it [here](license.md "LICENSE").
 
 ### The `README` file
 
-The README file is the readme of the project
+The README file is the readme of the project.
 
 ---
 
