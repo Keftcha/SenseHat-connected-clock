@@ -18,7 +18,7 @@ def diaporama(instance, directory_path, time_sleep=3):
         idx += 1
         idx = idx % len(pictures)
 
-        # Break if the joystick is toutched
+        # Break if the joystick is touched
         if instance.stick.get_events():
             break
 
