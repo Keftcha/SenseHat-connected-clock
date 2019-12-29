@@ -28,14 +28,45 @@ Replace `<file>` by the python file you want to execute in the `clock/` folder.
 
 ## Clock
 
+The clock is the main program of the project.
+
 ### Colors
 
-to do
+First, I'll explain you the `colors.json` file (located in `clock/` folder).
+
+This file is a json object. Keys are colors names and values are the RGB color
+value as a list. The list contain three integer (between 0 and 255).
+
+```json
+{
+   "color_name": [<red_value>, <green_value>, <blue_value>]
+}
+```
+
+To see an example of what the `colors.json` should contant, you can look the
+content of that file on GitHub.
+
+This file is made for people who want to add their custom colors.
 
 ### Arguments
 
 To get help on the clock progam and see what arguments it take, call it with the
-`-h` or `--help` argument as follow `./clock.py -h`.  
+`-h` or `--help` argument as follow `./clock.py -h`.
+
+- `-h` or `--help` → *Show the help.*
+- `-fg` or `--foreground` with one of the colors name which is in the
+`colors.json` file → *Set the foreground color.*
+- `-bg` or `--background` with one of the colors name which is in the
+`colors.json` file → *Set the background color.*
+- `-r` or `--rotation` with the rotation angle (0, 90, 180, 270) → *Set the
+    rotation of the LED matrix.*
+- `-b` or `--brightness` with a float number between 0 and 1 → *Set the
+    brightness, higher is brighter.*
+- `-l` or `--location` with a string which is the name of the location you want
+    the weather → *Set the location you want the weather.*
+- `-i` or `--interactive` → *Launch the program in interactive mode.*
+- `-s` or `--speed` with any int of float number higher than 0 → *Set the scoll
+    speed and refresh rate, lower fastest.*
 
 ### Config
 
@@ -43,6 +74,8 @@ To get help on the clock progam and see what arguments it take, call it with the
 #### config file
 #### arguments
 #### interactive
+
+### Usage
 
 ---
 
