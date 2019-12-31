@@ -154,6 +154,20 @@ Using the interactive mode will not overwrite the `config.json` file.
 
 ### Usage
 
+When the clock is started (it may take a little time to display things on the
+LED matrix) use the joystick to navigate.
+
+| Joystick action |                    Action                    |
+|-----------------|----------------------------------------------|
+|  Pushing Right  | Switch to the next feature                   |
+|  Pushing Left   | Switch to the previous feature               |
+|  Pushing Up     | Nothing                                      |
+|  Pushing Down   | Nothing                                      |
+|  Pressing it    | Start the menu config (press agait to exit)  |
+
+Each config work exactly the same as when they are started as the main program.  
+To know how to use features, see below.
+
 ---
 
 ## Binary clocks
