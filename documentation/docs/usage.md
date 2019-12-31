@@ -50,6 +50,8 @@ This file is made for people who want to add their custom colors.
 
 ### Arguments
 
+Here I'll explail all argument you can give to the clock program.
+
 To get help on the clock progam and see what arguments it take, call it with the
 `-h` or `--help` argument as follow `./clock.py -h`.
 
@@ -70,10 +72,85 @@ To get help on the clock progam and see what arguments it take, call it with the
 
 ### Config
 
+I'll now explain how configuration this program work and his defaults values.
+
+The clock program have 4 configuration type:
+
+- The [defaults](#defaults) configuration. This is the configuration used in
+    last resort
+- The [config file](#config_file). This configuration file is persistent.
+- The [arguments](#arguments_1) given. This is configuration given when you start
+    the program.
+- The [interactive mode](#interactive). This mode ask you each value which can
+    be confuguret at the program start.
+
+The priroty of configuration is like this:
+
+|   Very Prior     |   Prior   | Less Prior  | Not Prior|
+|:----------------:|:---------:|:-----------:|:--------:|
+| Interactive mode | Arguments | Config file | Defaults |
+
 #### defaults
+
+Defaults values are used when:
+
+- The `config.json` file is not found.
+- No arguments are given.
+- The interactive mode is not used.
+
+Defaults values are:
+
+| Parameter | Default value |
+|-----------|---------------|
+| foreground|     white     |
+| background|     black     |
+| rotation  |       0       |
+| brightness|       1       |
+| location  |     None      |
+|   speed   |      0.1      |
+
 #### config file
+
+Values in the configuration file are used when:
+
+- The file `config.json` is present.
+- The value for a setting is valid.
+- No arguments are given.
+- The interactive mode is not used.
+
+You can change the configuration in this file:
+
+- By hand (not recommended).
+- By using the [Menu config](#menu_config "Menu config program") program and
+    copying the output in the `config.json` file.
+- By accessing the **Menu config** feature while the clock is running (recommended).
+    To know how to do that, see the [usage](#usage) section.
+
+***Warning:***  
+*Using the **Menu config** feature of clock program will overwrite the previous
+config in the `config.json` file*.
+
+
 #### arguments
+
+Values in arguments are used when:
+
+- The arguments is present.
+- The value of the argument is valid.
+- The interactive mode is not used.
+
+To know available arguments and their values, refer to the
+[Arguments](#arguments) section.
+
+Giving arguments will not overwrite the `config.json` file.
+
 #### interactive
+
+Values given in interactive mode are use when:
+
+- The interactive mode is used.
+
+Using the interactive mode will not overwrite the `config.json` file.
 
 ### Usage
 
