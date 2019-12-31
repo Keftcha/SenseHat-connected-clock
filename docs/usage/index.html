@@ -101,6 +101,10 @@
                 </li>
                 <li class="">
                     
+    <a class="" href="../issues/">Issues</a>
+                </li>
+                <li class="">
+                    
     <a class="" href="../license/">License</a>
                 </li>
     </ul>
@@ -166,32 +170,230 @@ Replace <code>&lt;file&gt;</code> by the python file you want to execute in the 
 </ul>
 <hr />
 <h2 id="clock">Clock<a class="headerlink" href="#clock" title="Permanent link">&para;</a></h2>
+<p>The clock is the main program of the project.</p>
 <h3 id="colors">Colors<a class="headerlink" href="#colors" title="Permanent link">&para;</a></h3>
-<p>to do</p>
+<p>First, I'll explain you the <code>colors.json</code> file (located in <code>clock/</code> folder).</p>
+<p>This file is a json object. Keys are colors names and values are the RGB color
+value as a list. The list contain three integer (between 0 and 255).</p>
+<pre><code class="json">{
+   &quot;color_name&quot;: [&lt;red_value&gt;, &lt;green_value&gt;, &lt;blue_value&gt;]
+}
+</code></pre>
+
+<p>To see an example of what the <code>colors.json</code> should contant, you can look the
+content of that file on GitHub.</p>
+<p>This file is made for people who want to add their custom colors.</p>
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
+<p>Here I'll explail all argument you can give to the clock program.</p>
 <p>To get help on the clock progam and see what arguments it take, call it with the
-<code>-h</code> or <code>--help</code> argument as follow <code>./clock.py -h</code>.  </p>
+<code>-h</code> or <code>--help</code> argument as follow <code>./clock.py -h</code>.</p>
+<ul>
+<li><code>-h</code> or <code>--help</code> → <em>Show the help.</em></li>
+<li><code>-fg</code> or <code>--foreground</code> with one of the colors name which is in the
+<code>colors.json</code> file → <em>Set the foreground color.</em></li>
+<li><code>-bg</code> or <code>--background</code> with one of the colors name which is in the
+<code>colors.json</code> file → <em>Set the background color.</em></li>
+<li><code>-r</code> or <code>--rotation</code> with the rotation angle (0, 90, 180, 270) → <em>Set the
+    rotation of the LED matrix.</em></li>
+<li><code>-b</code> or <code>--brightness</code> with a float number between 0 and 1 → <em>Set the
+    brightness, higher is brighter.</em></li>
+<li><code>-l</code> or <code>--location</code> with a string which is the name of the location you want
+    the weather → <em>Set the location you want the weather.</em></li>
+<li><code>-i</code> or <code>--interactive</code> → <em>Launch the program in interactive mode.</em></li>
+<li><code>-s</code> or <code>--speed</code> with any int of float number higher than 0 → <em>Set the scoll
+    speed and refresh rate, lower fastest.</em></li>
+</ul>
 <h3 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<p>defaults
-config file
-arguments
-interactive</p>
+<p>I'll now explain how configuration this program work and his defaults values.</p>
+<p>The clock program have 4 configuration type:</p>
+<ul>
+<li>The <a href="#defaults">defaults</a> configuration. This is the configuration used in
+    last resort</li>
+<li>The <a href="#config_file">config file</a>. This configuration file is persistent.</li>
+<li>The <a href="#arguments_1">arguments</a> given. This is configuration given when you start
+    the program.</li>
+<li>The <a href="#interactive">interactive mode</a>. This mode ask you each value which can
+    be confuguret at the program start.</li>
+</ul>
+<p>The priroty of configuration is like this:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Very Prior</th>
+<th align="center">Prior</th>
+<th align="center">Less Prior</th>
+<th align="center">Not Prior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Interactive mode</td>
+<td align="center">Arguments</td>
+<td align="center">Config file</td>
+<td align="center">Defaults</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defaults">defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h4>
+<p>Defaults values are used when:</p>
+<ul>
+<li>The <code>config.json</code> file is not found.</li>
+<li>No arguments are given.</li>
+<li>The interactive mode is not used.</li>
+</ul>
+<p>Defaults values are:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>foreground</td>
+<td>white</td>
+</tr>
+<tr>
+<td>background</td>
+<td>black</td>
+</tr>
+<tr>
+<td>rotation</td>
+<td>0</td>
+</tr>
+<tr>
+<td>brightness</td>
+<td>1</td>
+</tr>
+<tr>
+<td>location</td>
+<td>None</td>
+</tr>
+<tr>
+<td>speed</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="config_file">config file<a class="headerlink" href="#config_file" title="Permanent link">&para;</a></h4>
+<p>Values in the configuration file are used when:</p>
+<ul>
+<li>The file <code>config.json</code> is present.</li>
+<li>The value for a setting is valid.</li>
+<li>No arguments are given.</li>
+<li>The interactive mode is not used.</li>
+</ul>
+<p>You can change the configuration in this file:</p>
+<ul>
+<li>By hand (not recommended).</li>
+<li>By using the <a href="#menu_config" title="Menu config program">Menu config</a> program and
+    copying the output in the <code>config.json</code> file.</li>
+<li>By accessing the <strong>Menu config</strong> feature while the clock is running (recommended).
+    To know how to do that, see the <a href="#usage">usage</a> section.</li>
+</ul>
+<p><strong><em>Warning:</em></strong><br />
+<em>Using the <strong>Menu config</strong> feature of clock program will overwrite the previous
+config in the <code>config.json</code> file</em>.</p>
+<h4 id="arguments_1">arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
+<p>Values in arguments are used when:</p>
+<ul>
+<li>The arguments is present.</li>
+<li>The value of the argument is valid.</li>
+<li>The interactive mode is not used.</li>
+</ul>
+<p>To know available arguments and their values, refer to the
+<a href="#arguments">Arguments</a> section.</p>
+<p>Giving arguments will not overwrite the <code>config.json</code> file.</p>
+<h4 id="interactive">interactive<a class="headerlink" href="#interactive" title="Permanent link">&para;</a></h4>
+<p>Values given in interactive mode are use when:</p>
+<ul>
+<li>The interactive mode is used.</li>
+</ul>
+<p>Using the interactive mode will not overwrite the <code>config.json</code> file.</p>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>When the clock is started (it may take a little time to display things on the
+LED matrix) use the joystick to navigate.</p>
+<table>
+<thead>
+<tr>
+<th>Joystick action</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pushing Right</td>
+<td>Switch to the next feature</td>
+</tr>
+<tr>
+<td>Pushing Left</td>
+<td>Switch to the previous feature</td>
+</tr>
+<tr>
+<td>Pushing Up</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td>Pushing Down</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td>Pressing it</td>
+<td>Start the menu config (press agait to exit)</td>
+</tr>
+</tbody>
+</table>
+<p>Each config work exactly the same as when they are started as the main program.<br />
+To know how to use features, see below.</p>
 <hr />
 <h2 id="binary_clocks">Binary clocks<a class="headerlink" href="#binary_clocks" title="Permanent link">&para;</a></h2>
-<p>to do</p>
+<p>The two binary clock both don't take any arguments.
+They just display time in binary.<br />
+The time is continously displayed.</p>
+<p>Time are displaied as explained in the <a href="../feature/#binary_clocks" title="Binary clocks feature">feature section</a>.</p>
 <h3 id="block_mode">Block mode<a class="headerlink" href="#block_mode" title="Permanent link">&para;</a></h3>
-<p>to do</p>
+<p>The rotation is set to 0° (that mean the up is up and the down is down).</p>
 <h3 id="hyphen_mode">Hyphen mode<a class="headerlink" href="#hyphen_mode" title="Permanent link">&para;</a></h3>
-<p>to do</p>
+<p>The rotation is set to 180° (that mean the up is down and the down is up).</p>
 <hr />
 <h2 id="digital_clock">Digital clock<a class="headerlink" href="#digital_clock" title="Permanent link">&para;</a></h2>
-<p>to do</p>
+<p>The digital clock profram take no arguments. It just display time.<br />
+The time is continously displayed.
+The rotation is set to 0° (that mean the up is up and the down is down).</p>
+<p>Time is displaied as explained in the <a href="../feature/#digital_clock" title="Digital clock feature">feature section</a>.</p>
 <hr />
 <h2 id="menu_config">Menu config<a class="headerlink" href="#menu_config" title="Permanent link">&para;</a></h2>
-<p>to do</p>
+<p>The menu config program is use to make the config.<br />
+The rotation is set to 180° (that mean the up is down and the down is up).
+The foreground color is set to blue while the background color is set to yellow.</p>
+<p>When you execute the program you'll first can change the brightness.<br />
+Pushing the joystick on the left you'll can change the text scroll speed
+(lower is speediest, highest is slowest).<br />
+Pushing the joystick on the left again you'll can change the rotation.<br />
+Pushing the joystick on the left again you'll can change the background color. <br />
+Pushing the joystick on the left again you'll can change the foreground color. <br />
+Pushing the joystick one last time on the left you go back to the brightness settings.  </p>
+<p>Pushing the joystick to the right will browse settings in the reverse order.</p>
+<p>To change value of a settings, push the joystick up of down.<br />
+For example, pushing down the joystick on the the brightness settings will
+reduce it, while pushing it up will increase the brihtness.</p>
+<p><strong>Changes take effect immediatly.</strong></p>
+<blockquote>
+<p>When you set the rotate, only the display rotate.<br />
+The joystick directions <strong>don't</strong> change.</p>
+</blockquote>
+<p>When you have configured your settings as you like, press the joystick to quit
+the program. It will print on screen you json configuration.<br />
+You can copy it to the <a href="#config_file" title="Clock configuration file">config file</a>
+of the clock program.</p>
 <hr />
 <h2 id="diaporama">Diaporama<a class="headerlink" href="#diaporama" title="Permanent link">&para;</a></h2>
-<p>to do</p>
+<p>The diaporama program take no arguments. It just pass images.<br />
+Images are displaied <code>1.5</code> secondes.
+The rotation is set to 180° (that mean the up is down and the down is up).</p>
+<p>You can add your custom images in the folder <code>clock/pictures/</code>. Images you add
+should have a size of <strong>8 by 8 pixels</strong>.</p>
               
             </div>
           </div>
