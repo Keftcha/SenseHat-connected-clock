@@ -1,8 +1,8 @@
 # Introduction
 
-Here are the explaination on all programs.
+Here is the explanation of all programs.
 
-- What arguments you can give when you execute theme
+- What arguments you can give when you execute them
 - How to use them
 
 To execute a file, you must be in the folder `clock/` of the project and do
@@ -32,10 +32,10 @@ The clock is the main program of the project.
 
 ### Colors
 
-First, I'll explain you the `colors.json` file (located in `clock/` folder).
+First, I'll explain you the `colors.json` file (located in the `clock/` folder).
 
 This file is a json object. Keys are colors names and values are the RGB color
-value as a list. The list contain three integer (between 0 and 255).
+value as a list. The list contains three integers (between 0 and 255).
 
 ```json
 {
@@ -43,22 +43,22 @@ value as a list. The list contain three integer (between 0 and 255).
 }
 ```
 
-To see an example of what the `colors.json` should contant, you can look the
+To see an example of what the `colors.json` should contain, you can look the
 content of that file on GitHub.
 
 This file is made for people who want to add their custom colors.
 
 ### Arguments
 
-Here I'll explail all argument you can give to the clock program.
+Here I'll explain all argument you can give to the clock program.
 
-To get help on the clock progam and see what arguments it take, call it with the
+To get help on the clock program and see what arguments it take, call it with the
 `-h` or `--help` argument as follow `./clock.py -h`.
 
 - `-h` or `--help` → *Show the help.*
-- `-fg` or `--foreground` with one of the colors name which is in the
+- `-fg` or `--foreground` with one of the color name which is in the
 `colors.json` file → *Set the foreground color.*
-- `-bg` or `--background` with one of the colors name which is in the
+- `-bg` or `--background` with one of the color name which is in the
 `colors.json` file → *Set the background color.*
 - `-r` or `--rotation` with the rotation angle (0, 90, 180, 270) → *Set the
     rotation of the LED matrix.*
@@ -72,17 +72,17 @@ To get help on the clock progam and see what arguments it take, call it with the
 
 ### Config
 
-I'll now explain how configuration this program work and his defaults values.
+I'll now explain how configuration this program work and his default values.
 
-The clock program have 4 configuration type:
+The clock program has 4 configuration type:
 
 - The [defaults](#defaults) configuration. This is the configuration used in
     last resort
 - The [config file](#config_file). This configuration file is persistent.
 - The [arguments](#arguments_1) given. This is configuration given when you start
     the program.
-- The [interactive mode](#interactive). This mode ask you each value which can
-    be confuguret at the program start.
+- The [interactive mode](#interactive). This mode asks you each value which can
+    be confugured at the program start.
 
 The priroty of configuration is like this:
 
@@ -135,7 +135,7 @@ config in the `config.json` file*.
 
 Values in arguments are used when:
 
-- The arguments is present.
+- The argument is present.
 - The value of the argument is valid.
 - The interactive mode is not used.
 
@@ -146,7 +146,7 @@ Giving arguments will not overwrite the `config.json` file.
 
 #### interactive
 
-Values given in interactive mode are use when:
+Values given in interactive mode are used when:
 
 - The interactive mode is used.
 
@@ -172,11 +172,11 @@ To know how to use features, see below.
 
 ## Binary clocks
 
-The two binary clock both don't take any arguments.
-They just display time in binary.  
-The time is continously displayed.
+The two binary clocks both don't take any arguments.
+They just display the time in binary.  
+The time is continuously displayed.
 
-Time are displaied as explained in the [feature section](feature.md#binary_clocks "Binary clocks feature").
+Time is displaied as explained in the [feature section](feature.md#binary_clocks "Binary clocks feature").
 
 
 ### Block mode
@@ -191,37 +191,37 @@ The rotation is set to 180° (that mean the up is down and the down is up).
 
 ## Digital clock
 
-The digital clock profram take no arguments. It just display time.  
-The time is continously displayed.
+The digital clock program take no arguments. It just displays the time.  
+The time is continuously displayed.
 The rotation is set to 0° (that mean the up is up and the down is down).
 
-Time is displaied as explained in the [feature section](feature.md#digital_clock "Digital clock feature").
+Time is displayed as explained in the [feature section](feature.md#digital_clock "Digital clock feature").
 
 ---
 
 ## Menu config
 
-The menu config program is use to make the config.  
+The menu config program is used to make the config.  
 The rotation is set to 180° (that mean the up is down and the down is up).
 The foreground color is set to blue while the background color is set to yellow.
 
 When you execute the program you'll first can change the brightness.  
 Pushing the joystick on the left you'll can change the text scroll speed
 (lower is speediest, highest is slowest).  
-Pushing the joystick on the left again you'll can change the rotation.  
-Pushing the joystick on the left again you'll can change the background color.   
-Pushing the joystick on the left again you'll can change the foreground color.   
+Pushing the joystick on the left again, you'll can change the rotation.  
+Pushing the joystick on the left again, you'll can change the background color.   
+Pushing the joystick on the left again, you'll can change the foreground color.   
 Pushing the joystick one last time on the left you go back to the brightness settings.  
 
 Pushing the joystick to the right will browse settings in the reverse order.
 
-To change value of a settings, push the joystick up of down.  
-For example, pushing down the joystick on the the brightness settings will
-reduce it, while pushing it up will increase the brihtness.
+To change value of a setting, push the joystick up or down.  
+For example, pushing down the joystick on the brightness settings will
+reduce it, while pushing it up will increase the brightness.
 
-**Changes take effect immediatly.**
+**Changes take effect immediately.**
 
-> When you set the rotate, only the display rotate.  
+> When you set the rotate, only the display rotates.  
 > The joystick directions **don't** change.
 
 When you have configured your settings as you like, press the joystick to quit
@@ -233,8 +233,8 @@ of the clock program.
 
 ## Diaporama
 
-The diaporama program take no arguments. It just pass images.  
-Images are displaied `1.5` secondes.
+The diaporama program takes no arguments. It just pass images.  
+Images are displayed `1.5` seconds.
 The rotation is set to 180° (that mean the up is down and the down is up).
 
 You can add your custom images in the folder `clock/pictures/`. Images you add

@@ -29,9 +29,9 @@ Here is the list of programs that are in this project.
 
 ## Clock
 
-The main programm of the project.  
+The main program of the project.  
 That program is a switcher for other programs.
-With it, you have acces to: 
+With it, you have access to: 
 
 - **Binary clocks**
 - **Digital clock**
@@ -51,15 +51,15 @@ Two modes are available.
 
 ### Block mode
 
-Dots are displayed on the martix using 2 by 2 LED.  
-This mode use all the space of the LED matrix.
+Dots are displayed on the matrix using 2 by 2 LED.  
+This mode uses all the space of the LED matrix.
 
 ---
 
 ### Hyphen mode
 
-Dots are displayer on the matrix using 1 LED for the height and 2 for the width.  
-This mode only use a part of the LED matrix.
+Dots are displayed on the matrix using 1 LED for the height and 2 for the width.  
+This mode only uses a part of the LED matrix.
 
 ---
 
@@ -67,14 +67,14 @@ This mode only use a part of the LED matrix.
 
 Display a digital clock.
 
-The matrix LED is divide in four part:
+The matrix LED is divided into four parts:
 
 - Top Left (hours tens)
 - Top Right (hours units)
 - Bottom Left (minutes tens)
 - Bottom Right (minutes units)
 
-Hours is on the top and minutes on the bottom of the LEF matrix
+Hours are on the top and minutes on the bottom of the LED matrix
 
 ---
 
@@ -90,7 +90,7 @@ You can configure:
 - The rotation angle
 - The text scroll speed
 
-The output is a json formated string.
+The output is a json formatted string.
 
 ---
 

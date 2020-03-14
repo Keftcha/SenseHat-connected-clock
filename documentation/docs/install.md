@@ -14,7 +14,7 @@ This project must work on all Raspberry Pi which can have a Sense HAT.
 ## Download
 
 The first thing to do is to download the project source code.
-To do that clone the remote or download a ZIP file on the
+To do that clone the remote or download a ZIP file of the
 [GitHub repository](https://github.com/Keftcha/SenseHat-connected-clock "GitHub
 repository").
 
@@ -48,7 +48,7 @@ The documentation folder is the source code for the generation of the documentat
 
 ### The `LICENSE` file
 
-The LICENSE file is the liscense of the project.  
+The LICENSE file is the license of the project.  
 You can read it [here](license.md "LICENSE").
 
 ### The `README` file
@@ -61,7 +61,7 @@ The README file is the readme of the project.
 
 The app is in the `clock` folder. You have to go in that folder.
 
-First you have to install dependencies. To do that, run:
+First, you have to install the dependencies. To do that, run:
 ```bash
 pip install -r requirements.txt
 ```
@@ -71,5 +71,5 @@ pip install -r requirements.txt
 ## Launch
 
 To launch an app, you can execute each python file.
-Each one do dirrerents feature, to know how to use them, go to the [Usage
+Each one does different feature, to know how to use them, go to the [Usage
 page](usage.md "Usage")
