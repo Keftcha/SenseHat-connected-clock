@@ -150,12 +150,12 @@ Current: {}\n".format(speed))
     if rotate_interactive in ("0", "90", "180", "270"):
         rotate = int(rotate_interactive)
     if(
-        brightness_interactive is not "" and
+        brightness_interactive != "" and
         0 <= float(brightness_interactive) <= 1
     ):
         brightness = float(brightness_interactive)
     city = city_interactive or city
-    if speed_interactive is not "" and float(speed_interactive) >= 0:
+    if speed_interactive != "" and float(speed_interactive) >= 0:
         speed = float(speed_interactive)
 
     # Display final parameters
